@@ -1,0 +1,26 @@
+{
+  "name": "CouchMap",
+  "version": "0.0.0",
+  "description": "web app to draw a map with the location of your couchsurfing friends",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "couchsurfing",
+    "map"
+  ],
+  "author": "gpuenteallott",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^3.15.2",
+    "logfmt": "^1.1.2",
+    "cheerio": "^0.17.0",
+    "ejs": "0.8.2",
+    "express-partials": "git://github.com/publicclass/express-partials.git"
+  },
+  "engines": {
+    "node": "0.11.x"
+  },
+  "devDependencies": {}
+}

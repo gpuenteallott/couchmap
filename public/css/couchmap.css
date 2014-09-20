@@ -1,0 +1,88 @@
+/*! normalize.css v1.0.0 | MIT License | git.io/normalize */
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary{display:block}audio,canvas,video{display:inline-block;*display:inline;*zoom:1}audio:not([controls]){display:none;height:0}[hidden]{display:none}html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}html,button,input,select,textarea{font-family:sans-serif}body{margin:0}a:focus{outline:thin dotted}a:active,a:hover{outline:0}h1{font-size:2em;margin:.67em 0}h2{font-size:1.5em;margin:.83em 0}h3{font-size:1.17em;margin:1em 0}h4{font-size:1em;margin:1.33em 0}h5{font-size:.83em;margin:1.67em 0}h6{font-size:.75em;margin:2.33em 0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}blockquote{margin:1em 40px}dfn{font-style:italic}mark{background:#ff0;color:#000}p,pre{margin:1em 0}code,kbd,pre,samp{font-family:monospace,serif;_font-family:'courier new',monospace;font-size:1em}pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word}q{quotes:none}q:before,q:after{content:'';content:none}small{font-size:75%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}dl,menu,ol,ul{margin:1em 0}dd{margin:0 0 0 40px}menu,ol,ul{padding:0 0 0 40px}nav ul,nav ol{list-style:none;list-style-image:none}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root){overflow:hidden}figure{margin:0}form{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0;white-space:normal;*margin-left:-7px}button,input,select,textarea{font-size:100%;margin:0;vertical-align:baseline;*vertical-align:middle}button,input{line-height:normal}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer;*overflow:visible}button[disabled],input[disabled]{cursor:default}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0;*height:13px;*width:13px}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}
+
+#map {
+	width:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+}
+
+#templates {
+	display: none;
+}
+
+.leaflet-marker-icon {
+	width: auto !important;
+	height: auto !important;
+}
+.leaflet-marker-icon:hover {
+	z-index: 10000 !important;
+}
+
+.marker {
+	background-color: #aa2299;
+	border-radius:100px;
+	border: solid 2px #fff;
+	box-shadow: 3px 3px 10px rgba(0,0,0,.4);
+	margin: 0 auto;
+}
+.marker.users-1 {
+	height:50px;
+	width:40px;
+}
+.marker.users-2 {
+	width:70px;
+	height:50px;
+}
+.marker.users-3,
+.marker.users-4 {
+	height:90px;
+	width:70px;
+}
+.marker.users-5,
+.marker.users-6,
+.marker.users-7,
+.marker.users-8,
+.marker.users-9 {
+	height:110px;
+	width:90px;
+}
+
+.pic-holder {
+	width: 100%;
+	height: 100%;
+	border-radius:100px;
+	margin: 0 auto;
+	overflow: hidden;
+	overflow: hidden;
+}
+.pic-box {
+	overflow: hidden;
+	background-size: cover;
+	background-position:50% 50%;
+	float: left;
+}
+.marker.users-1 .pic-box {
+	width: 100%;
+	height: 100%;
+}
+.marker.users-2 .pic-box {
+	width: 50%;
+	height: 100%;
+}
+.marker.users-3  .pic-box,
+.marker.users-4  .pic-box {
+	height: 50%;
+	width: 50%;
+}
+.marker.users-5  .pic-box
+.marker.users-6  .pic-box,
+.marker.users-7  .pic-box,
+.marker.users-8  .pic-box,
+.marker.users-9  .pic-box {
+	height: 33%;
+	width: 33%;
+}
