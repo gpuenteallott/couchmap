@@ -111,7 +111,7 @@ if ( $('#map').length > 0 ) {
 		L.marker([lat, lng], {
 			title: 'Expand',
 			icon: L.divIcon({ 
-				className: 'custom-marker',
+				className: 'custom-marker users-'+users.length,
 				html: $thisMarker.html(),
 				iconSize: [90, 90]
 			})
