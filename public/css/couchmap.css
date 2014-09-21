@@ -183,3 +183,9 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 	padding-left: 10px;
 	float-left
 }
+
+
+.leaflet-control-zoom {
+	top: 7em;
+}
+

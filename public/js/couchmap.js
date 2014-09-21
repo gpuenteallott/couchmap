@@ -186,7 +186,7 @@ $(function() {
 		L.mapbox.accessToken = 'pk.eyJ1IjoiZ3B1ZW50ZWFsbG90dCIsImEiOiJDb01hYlVFIn0.SC1BPQVo52ms__EJm3ybaw';
 		
 		var geocoder = L.mapbox.geocoder('mapbox.places-city-v1');
-		couchmap.map.map = L.mapbox.map('map', 'gpuenteallott.j6h3mapo', {
+		couchmap.map.map = L.mapbox.map('map', 'gpuenteallott.jighe8gc', {
 				worldCopyJump: true
 			});
 		couchmap.map.featureLayer = L.mapbox.featureLayer();
