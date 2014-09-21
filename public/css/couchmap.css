@@ -10,6 +10,29 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 	right:0;
 }
 
+
+#map-loader {
+	width:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	background-color: rgba(40,85,191,.7);
+}
+#map-loader .loader-inner {
+	margin: 0 auto;
+	color: #fff;
+	text-align:center;
+	position: absolute;
+	width: 5em;
+	height:5em;
+	margin-left: -2.5em;
+	margin-top: -2.5em;
+	top: 50%;
+	left: 50%;
+}
+
 #templates {
 	display: none;
 }
@@ -27,7 +50,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 	margin: 0 auto;
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
 	border-radius:100px;
 	border: solid 2px #fff;
 }
@@ -79,6 +101,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 	height: 100%;
 	border-radius:100px;
 	margin: 0 auto;
+	overflow: hidden;
 }
 .pic-box {
 	overflow: hidden;
@@ -106,4 +129,57 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 .marker.users-9  .pic-box {
 	height: 33%;
 	width: 33%;
+}
+
+.marker .marker-content {
+	background-color: #fff;
+	width: 200px;
+	border-radius:5px;
+	padding: .4em;
+	position: absolute;
+	display:none;
+	box-shadow: 3px 3px 15px rgba(0,0,0,.7);
+}
+.leaflet-marker-icon.quadrant-1 .marker .marker-content {
+	top: 0;
+	left: 0;
+}
+.leaflet-marker-icon.quadrant-2  .marker .marker-content {
+	top: 0;
+	right: 0;
+}
+.leaflet-marker-icon.quadrant-3 .marker .marker-content {
+	bottom: 0;
+	left: 0;
+}
+.leaflet-marker-icon.quadrant-4 .marker .marker-content {
+	bottom: 0;
+	right: 0;
+}
+
+
+.leaflet-marker-icon.open .marker .marker-content {
+	display: block;
+}
+.leaflet-marker-icon.open {
+	z-index: 9000 !important;
+}
+.marker .marker-content-row {
+	clear: both;
+	overflow: hidden;
+	padding: .4em;
+	padding-top: 0;
+}
+.marker .marker-content-row .profile-pic {
+	width: 40px;
+	height: 40px;
+	overflow: hidden;
+	background-size: cover;
+	background-position:50% 50%;
+	float: left;
+}
+.marker .marker-content-row .text {
+	margin-left: 40px;
+	padding-left: 10px;
+	float-left
 }

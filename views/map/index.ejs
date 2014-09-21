@@ -2,15 +2,46 @@
 	<div class="row">
 	</div>
 </div>
+
 <div id="map"></div>
+
+<div id="map-loader">
+	<div class="loader-inner">
+		Loading
+	</div>
+</div>
+
+<header>
+	<div class='nav'>
+		<a href='/'>Home</a>
+		<a href='/'>Do yours</a>
+	<div>
+</header>
+
 
 <div id="templates">
 	<div id="templateMarker">
 		<div class="marker">
+			<%// marker pictures populate inside pic-holder %>
 			<div class='pic-holder'>
+			</div>
+			<%// marker content populates here %>
+			<div class='marker-content'>
+				<p class='location'></p>
 			</div>
 		</div>
 		<div class='pin'>
+		</div>
+	</div>
+
+	<div id="templateMarkerContent">
+		<div class='marker-content-row'>
+			<a target='blank'>
+				<div class='profile-pic'></div>
+				<div class='text'>
+					<p class='name'></p>
+				</div>
+			</a>
 		</div>
 	</div>
 </div>

@@ -74,7 +74,6 @@ scrapeCSProfile = function( html ) {
 		if ( $friend.attr('id') != 'morefriends' && $friend.find('.profile-image').length > 0 ) {
 			var friend = {};
 			friend['image'] = $friend.find('.profile-image img').attr('src');
-			console.log('href'+$friend.find('.profile-image').attr("href"));
 			friend['username'] = $friend.find('.profile-image').attr("href").replace('/people/','').replace('/','');
 			friend['name'] = $friend.find('a:nth-child(2)').text();
 			location = $friend.html().split("<br>")[2].split(",");
