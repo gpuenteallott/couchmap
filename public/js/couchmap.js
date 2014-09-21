@@ -12,6 +12,24 @@ app.controller('TodoCtrl', function($scope) {
 	};
 });
 
+
+
+
+var couchmap = {};
+
+couchmap.marker = function($) {
+	return {
+		emphasize : function( $marker ) {
+			$marker.siblings('.leaflet-marker-icon').css('opacity','.7');
+		},
+		resetEmphasis : function ( $marker ) {
+			$('.leaflet-marker-icon').css('opacity','1');
+		}
+	}
+}(jQuery)
+
+
+
 $templateMarker = $('#templates #templateMarker');
 
 // Set up map
@@ -94,6 +112,13 @@ if ( $('#map').length > 0 ) {
 		}
 		featureLayer.addTo(map);
 		map.fitBounds(featureLayer.getBounds());
+
+		$('.leaflet-marker-icon').on('mouseenter', function() {
+			couchmap.marker.emphasize($(this));
+		});
+		$('.leaflet-marker-icon').on('mouseleave', function() {
+			couchmap.marker.resetEmphasis();
+		});
 	}
 
 	function addMarker (lat, lng, users) {
