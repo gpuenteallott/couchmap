@@ -204,8 +204,8 @@ app.controller('MapCtrl', function($scope) {
 	$scope.init = function() {
 
 		// extract the username from the URL
-		if ( typeof window.location.pathname.split('/')[2] != 'undefined' && window.location.pathname.split('/')[2] != '' ) {
-			$scope.username = window.location.pathname.split('/')[2];
+		if ( typeof window.location.pathname.split('/')[1] != 'undefined' && window.location.pathname.split('/')[1] != '' ) {
+			$scope.username = window.location.pathname.split('/')[1];
 			var force_modal = false;
 		} else {
 			$scope.username = '';
@@ -274,11 +274,11 @@ app.controller('MapCtrl', function($scope) {
 
 		if ( $scope.new_map_username == '' ) {
 			$($event.target).addClass('error');
-			return;
+			return false;
 		}
 
 		// redirect
-		window.location = '/map/' + $scope.new_map_username;
+		window.location = '/' + $scope.new_map_username;
 	};
 
 	$scope.refresh = function() {
