@@ -37,51 +37,65 @@ couchmap.marker = function($) {
 		getContentTemplate: function () {
 			return $('#templates #templateMarkerContent').clone();
 		},
+		getContentRowTemplate: function () {
+			return $('#templates #templateMarkerContentRow').clone();
+		},
 		setMarker: function (lat, lng, users) {
 			// prepare the template marker
 			var $thisMarker = couchmap.marker.getTemplate();
+
+
+			var $markerContent = couchmap.marker.getContentTemplate();
+			$markerContent.find('.popup-location').text(users[0]['city']+', '+users[0]['country']);
 
 			for ( var i in users ) {
 				$picBox = $('<div>').addClass('pic-box');
 				$picBox.css('background-image', 'url('+users[i]['image']+')' );
 				$thisMarker.find('.marker .pic-holder').append( $picBox );
 
-				$contentRow = couchmap.marker.getContentTemplate();
+				$contentRow = couchmap.marker.getContentRowTemplate();
 				$contentRow.find('.profile-pic').css('background-image', 'url('+users[i]['image']+')' );;
 				$contentRow.find('.name').text( users[i]['name'] );
 				$contentRow.find('a').attr('href', 'http://www.couchsurfing.org/people/'+users[i]['username'] );
 
-				$thisMarker.find('.marker-content').append( $contentRow.html() );
+				$markerContent.append( $contentRow.html() );
 			}
-			$thisMarker.find('.location').text(users[0]['city']+', '+users[0]['country']);
+			//$thisMarker.find('.location').text(users[0]['city']+', '+users[0]['country']);
 			$thisMarker.find('.marker').addClass('users-'+users.length);
+			$('#popups').append( $thisMarker );
 
-		L.marker([lat, lng], {
+			L.marker([lat, lng], {
 				title: users[i]['username'],
 				icon: L.divIcon({
-					className: 'custom-marker users-'+users.length+' marker-username-'+users[i]['username'],
+					className: 'custom-marker users-'+users.length,
 					html: $thisMarker.html(),
 					iconSize: [90, 90]
 				})
-			}).addTo(couchmap.map.featureLayer);
+			}).addTo(couchmap.map.featureLayer).bindPopup( $markerContent.html() , {
+				maxHeight: 300,
+				maxWidth: 200,
+				minWidth: 200,
+				autoPan: false
+			});
 		},
+
 		open: function ( $marker, posX, posY ) {
 
-			var middleX = $(window).width() / 2;
-			var middleY = $(window).height() / 2;
+			// var middleX = $(window).width() / 2;
+			// var middleY = $(window).height() / 2;
 
-			if ( posX < middleX && posY < middleY ) {
-				$marker.addClass('quadrant-1').removeClass('quadrant-2 quadrant-3 quadrant-4');
-			} else if ( posX > middleX && posY < middleY ) {
-				$marker.addClass('quadrant-2').removeClass('quadrant-1 quadrant-3 quadrant-4');
-			} else if ( posX < middleX && posY > middleY ) {
-				$marker.addClass('quadrant-3').removeClass('quadrant-2 quadrant-1 quadrant-4');
-			} else if ( posX > middleX && posY > middleY ) {
-				$marker.addClass('quadrant-4').removeClass('quadrant-2 quadrant-3 quadrant-1');
-			}
+			// if ( posX < middleX && posY < middleY ) {
+			// 	$marker.addClass('quadrant-1').removeClass('quadrant-2 quadrant-3 quadrant-4');
+			// } else if ( posX > middleX && posY < middleY ) {
+			// 	$marker.addClass('quadrant-2').removeClass('quadrant-1 quadrant-3 quadrant-4');
+			// } else if ( posX < middleX && posY > middleY ) {
+			// 	$marker.addClass('quadrant-3').removeClass('quadrant-2 quadrant-1 quadrant-4');
+			// } else if ( posX > middleX && posY > middleY ) {
+			// 	$marker.addClass('quadrant-4').removeClass('quadrant-2 quadrant-3 quadrant-1');
+			// }
 
-			$marker.addClass('open');
-			$marker.siblings('.leaflet-marker-icon').removeClass('open');
+			// $marker.addClass('open');
+			// $marker.siblings('.leaflet-marker-icon').removeClass('open');
 		},
 		closeAll: function () {
 			$('.leaflet-marker-icon').removeClass('open');
@@ -165,9 +179,9 @@ couchmap.map = function($) {
 			$('.leaflet-marker-icon').on('mouseleave', function() {
 				couchmap.marker.resetEmphasis();
 			});
-			$('.leaflet-marker-icon').on('click', function(e) {
-				couchmap.marker.open( $(this), e.pageX, e.pageY );
-			});
+			// $('.leaflet-marker-icon').on('click', function(e) {
+			// 	couchmap.marker.open( $(this), e.pageX, e.pageY );
+			// });
 			$('#map').on('click', function() {
 				couchmap.marker.closeAll();
 			});

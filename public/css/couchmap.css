@@ -136,28 +136,8 @@ body, input {
 	width: 33%;
 }
 
-.marker .marker-content {
-	background-color: #fff;
-	width: 200px;
-	border-radius:5px;
-	padding: .4em;
-	position: absolute;
-	display:none;
-	box-shadow: 3px 3px 15px rgba(0,0,0,.7);
-	max-height: 300%;
-	overflow: scroll;
-}
-.leaflet-marker-icon.quadrant-1 .marker .marker-content {
-	top: 0;
-	left: 0;
-}
-.leaflet-marker-icon.quadrant-2  .marker .marker-content {
-	top: 0;
-	right: 0;
-}
-.leaflet-marker-icon.quadrant-3 .marker .marker-content {
-	bottom: 0;
-	left: 0;
+.leaflet-popup-content {
+	padding: .5em !important;
 }
 
 header {
@@ -167,25 +147,13 @@ header {
 	z-index:100;
 }
 
-.leaflet-marker-icon.quadrant-4 .marker .marker-content {
-	bottom: 0;
-	right: 0;
-}
-
-
-.leaflet-marker-icon.open .marker .marker-content {
-	display: block;
-}
-.leaflet-marker-icon.open {
-	z-index: 9000 !important;
-}
-.marker .marker-content-row {
+.popup-content-row {
 	clear: both;
 	overflow: hidden;
 	padding: .4em;
 	padding-top: 0;
 }
-.marker .marker-content-row .profile-pic {
+.popup-content-row .profile-pic {
 	width: 20%;
 	height: 40px;
 	overflow: hidden;
@@ -193,11 +161,11 @@ header {
 	background-position:50% 50%;
 	float: left;
 }
-.marker .marker-content-row .text {
+.popup-content-row .text {
 	width: 80%;
 	float: left;
 }
-.marker .marker-content-row .text p {
+.popup-content-row .text p {
 	padding-left: 10px;
 }
 
