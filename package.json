@@ -1,5 +1,5 @@
 {
-  "name": "CouchMap",
+  "name": "Couch Locator",
   "version": "0.0.0",
   "description": "web app to draw a map with the location of your couchsurfing friends",
   "main": "app.js",

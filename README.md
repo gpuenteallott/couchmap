@@ -1,4 +1,4 @@
-couchmap
+couch locator
 ========
 
-Couch Map! To keep track of where your couch friends with a beautiful map
+Couch Locator! To keep track of where your couch friends with a beautiful map
