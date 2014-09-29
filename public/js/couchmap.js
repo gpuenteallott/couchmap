@@ -16,12 +16,12 @@ app.controller('TodoCtrl', function($scope) {
 	};
 });
 
-// #######
-// #
-// # MAP SETUP, jQuery
-// #
 
 var couchmap = couchmap ? couchmap : {};
+couchmap.ACEESS_TOKEN = 'pk.eyJ1IjoiZ3B1ZW50ZWFsbG90dCIsImEiOiJDb01hYlVFIn0.SC1BPQVo52ms__EJm3ybaw';
+couchmap.MAP_TYPE = 'mapbox.places-city-v1';
+couchmap.MAP_ID = 'gpuenteallott.jighe8gc';
+
 
 couchmap.marker = function($) {
 	return {
@@ -57,9 +57,9 @@ couchmap.marker = function($) {
 			$thisMarker.find('.marker').addClass('users-'+users.length);
 
 		L.marker([lat, lng], {
-				title: 'Expand',
-				icon: L.divIcon({ 
-					className: 'custom-marker users-'+users.length,
+				title: users[i]['username'],
+				icon: L.divIcon({
+					className: 'custom-marker users-'+users.length+' marker-username-'+users[i]['username'],
 					html: $thisMarker.html(),
 					iconSize: [90, 90]
 				})
@@ -127,10 +127,10 @@ couchmap.map = function($) {
 				}
 				// if it is a new position (marker), we add the lat, lng and user to the positions array
 				if ( !existingPosition ) {
-					positions.push({ 
+					positions.push({
 						'lat': lat,
 						'lng': lng,
-						'users': [user['friends'][i]] 
+						'users': [user['friends'][i]]
 					});
 				}
 			}
@@ -179,14 +179,40 @@ couchmap.map = function($) {
 	}
 }(jQuery)
 
+// ------------------------
+// Angular controllers
 
-// Set up map
-$(function() {
-	if ( $('#map').length > 0 ) {
-		L.mapbox.accessToken = 'pk.eyJ1IjoiZ3B1ZW50ZWFsbG90dCIsImEiOiJDb01hYlVFIn0.SC1BPQVo52ms__EJm3ybaw';
-		
-		var geocoder = L.mapbox.geocoder('mapbox.places-city-v1');
-		couchmap.map.map = L.mapbox.map('map', 'gpuenteallott.jighe8gc', {
+app.controller('MapCtrl', function($scope) {
+
+	$scope.username = '';
+	$scope.new_map_username = '';
+
+	$scope.init = function() {
+
+		// extract the username from the URL
+		if ( typeof window.location.pathname.split('/')[2] != 'undefined' && window.location.pathname.split('/')[2] != '' ) {
+			$scope.username = window.location.pathname.split('/')[2];
+			var force_modal = false;
+		} else {
+			$scope.username = '';
+			$('.nav-username').hide();
+			var force_modal = true;
+		}
+
+		// make sure there is a map element
+		if ( $('#map').length === 0 ) {
+			return false;
+		}
+
+		if ( force_modal ) {
+			$('#map').addClass('blur');
+			$('#username-modal').show();
+		}
+
+		L.mapbox.accessToken = couchmap.ACEESS_TOKEN;
+
+		var geocoder = L.mapbox.geocoder( couchmap.MAP_TYPE );
+		couchmap.map.map = L.mapbox.map('map', couchmap.MAP_ID, {
 				worldCopyJump: true
 			});
 		couchmap.map.featureLayer = L.mapbox.featureLayer();
@@ -200,10 +226,51 @@ $(function() {
 			user['friends'][i]['query'] = thisQuery;
 			geocoderQuery += thisQuery+";";
 		}
-		console.log( user['friends'] );
 
 		geocoderQuery = geocoderQuery.substring(0, geocoderQuery.length - 1);
 
 		geocoder.query( geocoderQuery , couchmap.map.draw );
-	}
-})
+	};
+
+	$scope.canvasClick = function($event) {
+
+		if ( $scope.username == '' ) {
+			return false;
+		}
+
+		// show modal to create new couchmap
+		if ( $(event.target).closest('.nav-new').length ) {
+			$('#username-modal').show();
+			$('#map').addClass('blur');
+		}
+
+		// hide modals when clicked outside them
+		else if( !$(event.target).closest('.couchmap-modal').length) {
+			$('.couchmap-modal').hide();
+			$('#map').removeClass('blur');
+		}
+
+	};
+
+	$scope.newMap = function($event) {
+
+		if ( $event.type != 'keyup' || $event.keyCode != 13 ) {
+			return;
+		}
+
+		if ( $scope.new_map_username == '' ) {
+			$($event.target).addClass('error');
+			return;
+		}
+
+		// redirect
+		window.location = '/map/' + $scope.new_map_username;
+	};
+
+	$scope.refresh = function() {
+		window.location.reload();
+	};
+
+	$scope.init();
+});
+

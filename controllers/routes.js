@@ -11,5 +11,5 @@ module.exports = function (app) {
 
 	app.get('/map', mapController.index);
 
-	app.get('/map/:username', mapController.map);
+	app.get('/map/:username', mapController.index);
 }

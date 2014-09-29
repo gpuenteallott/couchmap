@@ -5,19 +5,24 @@ var https = require('https');
 var cheerio = require('cheerio'); // https://www.npmjs.org/package/cheerio
 
 // GET /map
-exports.index = function(req, res, next) {
+// exports.index = function(req, res, next) {
 
-	res.send('Hello Couch!');
-}
+// 	res.send('Hello Couch!');
+// }
 
 // GET /map/username
-exports.map = function(req, res, next) {
+exports.index = function(req, res, next) {
 
-	//res.send('Hello '+req.param('username')+'!');
+	// load username or use default one
+	if ( typeof req.param('username') == 'undefined' ) {
+		var username = 'gpuenteallott';
+	} else {
+		var username = req.param('username');
+	}
 
 	var options = {
 		host: 'www.couchsurfing.org',
-		path: "/people/"+req.param('username')+"/?all_friends=1&all_references=1",
+		path: "/people/"+username+"/?all_friends=1&all_references=1",
 
 		// workaround for certificate validation
 		agent: false,
@@ -34,9 +39,9 @@ exports.map = function(req, res, next) {
 
 		//the whole response has been recieved, so we just print it out here
 		response.on('end', function () {
-			
+
 			var user = scrapeCSProfile(str);
-			res.render('map/index', 
+			res.render('map/index',
 				{ user: JSON.stringify(user)}
 			);
 		});
@@ -52,7 +57,7 @@ scrapeCSProfile = function( html ) {
 	// https://www.npmjs.org/package/cheerio
 	var $ = cheerio.load(html, {
     	normalizeWhitespace: true
-	});	
+	});
 
 	// Super ugly retrieval of information, CS source code is terrible
 	user['name'] = $(".profile_header .profile").text().trim();

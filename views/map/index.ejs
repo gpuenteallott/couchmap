@@ -1,51 +1,64 @@
-<div class="container">
-	<div class="row">
-	</div>
-</div>
-
-<div id="map"></div>
-
-<div id="map-loader">
-	<div class="loader-inner">
-		Loading
-	</div>
-</div>
-
-<header>
-	<div class='nav'>
-		<a href='/'>Home</a>
-		<a href='/'>Do yours</a>
-	<div>
-</header>
-
-
-<div id="templates">
-	<div id="templateMarker">
-		<div class="marker">
-			<%// marker pictures populate inside pic-holder %>
-			<div class='pic-holder'>
-			</div>
-			<%// marker content populates here %>
-			<div class='marker-content'>
-				<p class='location'></p>
-			</div>
-		</div>
-		<div class='pin'>
+<div ng-controller="MapCtrl" ng-click="canvasClick($event)">
+	<div class="container">
+		<div class="row">
 		</div>
 	</div>
 
-	<div id="templateMarkerContent">
-		<div class='marker-content-row'>
-			<a target='blank'>
-				<div class='profile-pic'></div>
-				<div class='text'>
-					<p class='name'></p>
+
+	<button id='open-popup' class='ui-control'>open popup</button>
+	<div id="map"></div>
+
+
+	<div id="map-loader">
+		<div class="loader-inner">
+			Loading
+		</div>
+	</div>
+
+	<div id="username-modal" class="couchmap-modal">
+		<div class='couchmap-modal-content'>
+			<input type='text' name='username' placeholder='Couchsufing username' ng-keyup="newMap($event)" ng-model="new_map_username"/>
+			<p><a href='https://www.couchsurfing.org'>What is Couchsurfing?</a></p>
+		</div>
+	</div>
+
+	<header>
+		<div class='nav'>
+			<ul>
+				<li class='nav-username' ng-click="refresh()"><span>{{username}}'s couchmap</span></li>
+				<li class='nav-new'><span>Create your Couchmap!</span></li>
+			</ul>
+		<div>
+	</header>
+
+
+	<div id="templates">
+		<div id="templateMarker">
+			<div class="marker">
+				<%// marker pictures populate inside pic-holder %>
+				<div class='pic-holder'>
 				</div>
-			</a>
+				<%// marker content populates here %>
+				<div class='marker-content'>
+					<p class='location'></p>
+				</div>
+			</div>
+			<div class='pin'>
+			</div>
+		</div>
+
+		<div id="templateMarkerContent">
+			<div class='marker-content-row'>
+				<a target='blank'>
+					<div class='profile-pic'></div>
+					<div class='text'>
+						<p class='name'></p>
+					</div>
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
-
-<script>
-	user = <%- user %>;
-</script>
+	<script>
+		user = <%- user %>;
+	</script>
