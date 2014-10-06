@@ -100,11 +100,6 @@ couchmap.map = function($) {
 		getPositionsFromData: function (data) {
 			var positions = [];
 
-			// if there is only one result, then it isn't in an array, so we wrap it in one
-			if ( typeof data.results.type != 'undefined' ) {
-				data.results = [ data.results ];
-			}
-
 			for ( i in data['results'] ) {
 
 				// if there is no user for that index
@@ -151,8 +146,15 @@ couchmap.map = function($) {
 				return;
 			}
 
+			// if there is only one result, then it isn't in an array, so we wrap it in one
+			if ( typeof data.results.type != 'undefined' ) {
+				data.results = [ data.results ];
+			}
+
 			// save the result in the global var
-			couchmap.map.geocodingResult = couchmap.map.geocodingResult.concat(data);
+			for ( var i in data.results ) {
+				couchmap.map.geocodingResult.add( data.results[i] );
+			}
 
 			// increase index
 			couchmap.map.thisGeocodingQuery++;
@@ -262,41 +264,42 @@ app.controller('MapCtrl', function($scope) {
 
 		setTimeout( function() {
 
-		couchmap.map.featureLayer = L.mapbox.featureLayer();
+			couchmap.map.featureLayer = L.mapbox.featureLayer();
 
-		// Prepare one query for all friends. Limit is 50
+			// Prepare one query for all friends. Limit is 50
+			var LIMIT = 20;
 
-		for ( i in user['friends'] ) {
+			for ( i in user['friends'] ) {
 
-			// group them by every 50 locations
-			var groupIndex = Math.floor(i / 50);
+				// group them by every 50 locations
+				var groupIndex = Math.floor(i / LIMIT);
 
-			// initializate it
-			if ( typeof couchmap.map.geocodingQueries[ groupIndex ] == 'undefined' ) {
-				couchmap.map.geocodingQueries[ groupIndex ] = '';
+				// initializate it
+				if ( typeof couchmap.map.geocodingQueries[ groupIndex ] == 'undefined' ) {
+					couchmap.map.geocodingQueries[ groupIndex ] = '';
+				}
+
+				var thisQuery = user['friends'][i]['city'] +",";
+				thisQuery += typeof user['friends'][i]['region'] == "undefined" ? '' :  user['friends'][i]['region'] +",";
+				thisQuery += user['friends'][i]['country'];
+				user['friends'][i]['query'] = thisQuery;
+
+				couchmap.map.geocodingQueries[ groupIndex ] += thisQuery+";";
 			}
 
-			var thisQuery = user['friends'][i]['city'] +",";
-			thisQuery += typeof user['friends'][i]['region'] == "undefined" ? '' :  user['friends'][i]['region'] +",";
-			thisQuery += user['friends'][i]['country'];
-			user['friends'][i]['query'] = thisQuery;
+			if ( couchmap.map.geocodingQueries[0] != '' ) {
 
-			couchmap.map.geocodingQueries[ groupIndex ] += thisQuery+";";
-		}
+				var query = couchmap.map.geocodingQueries[ couchmap.map.thisGeocodingQuery ];
+				query = query.substring( 0, query.length -1 );
 
-		if ( couchmap.map.geocodingQueries[0] != '' ) {
+				couchmap.map.thisGeocodingQuery = 0;
 
-			var query = couchmap.map.geocodingQueries[ couchmap.map.thisGeocodingQuery ];
-			query = query.substring( 0, query.length -1 );
-
-			couchmap.map.thisGeocodingQuery = 0;
-
-			couchmap.map.geocoder = L.mapbox.geocoder( couchmap.MAP_TYPE );
-			couchmap.map.geocoder.query(
-				query,
-				couchmap.map.checkGeocoding
-			);
-		}
+				couchmap.map.geocoder = L.mapbox.geocoder( couchmap.MAP_TYPE );
+				couchmap.map.geocoder.query(
+					query,
+					couchmap.map.checkGeocoding
+				);
+			}
 
 		}, 500);
 	};
