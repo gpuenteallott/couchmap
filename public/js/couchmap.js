@@ -225,10 +225,12 @@ app.controller('MapCtrl', function($scope) {
 
 		L.mapbox.accessToken = couchmap.ACEESS_TOKEN;
 
-		var geocoder = L.mapbox.geocoder( couchmap.MAP_TYPE );
 		couchmap.map.map = L.mapbox.map('map', couchmap.MAP_ID, {
-				worldCopyJump: true
-			});
+			worldCopyJump: true
+		});
+
+		setTimeout( function() {
+
 		couchmap.map.featureLayer = L.mapbox.featureLayer();
 
 		// Prepare one query for all friends. Limit is 50
@@ -243,7 +245,10 @@ app.controller('MapCtrl', function($scope) {
 
 		geocoderQuery = geocoderQuery.substring(0, geocoderQuery.length - 1);
 
+		var geocoder = L.mapbox.geocoder( couchmap.MAP_TYPE );
 		geocoder.query( geocoderQuery , couchmap.map.draw );
+
+		}, 500);
 	};
 
 	$scope.canvasClick = function($event) {
@@ -285,8 +290,6 @@ app.controller('MapCtrl', function($scope) {
 		window.location.reload();
 	};
 
-	setTimeout(
-		$scope.init();
-	, 500);
+	$scope.init();
 });
 
