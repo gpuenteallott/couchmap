@@ -63,10 +63,14 @@ scrapeCSProfile = function( html ) {
 
 	// Super ugly retrieval of information, CS source code is terrible
 	user['name'] = $(".profile_header .profile").text().trim();
-	var location = $(".profile_header a[target=mapblast]").html().split("<br>");
-	user['city'] = location[2];
-	user['region'] = location[1];
-	user['country'] = location[0];
+
+	if ( $(".profile_header a[target=mapblast]").html() != null ) {
+		var location = $(".profile_header a[target=mapblast]").html().split("<br>");
+		user['city'] = location[2];
+		user['region'] = location[1];
+		user['country'] = location[0];
+	}
+
 	user['username'] = $('.generalinfo tr:nth-child(7) td').text().toLowerCase();
 	user['image'] = $('.right_profile div:nth-child(2) img').attr("src");
 
@@ -83,6 +87,7 @@ scrapeCSProfile = function( html ) {
 			friend['image'] = $friend.find('.profile-image img').attr('src');
 			friend['username'] = $friend.find('.profile-image').attr("href").replace('/people/','').replace('/','');
 			friend['name'] = $friend.find('a:nth-child(2)').text();
+
 			location = $friend.html().split("<br>")[2].split(",");
 			friend['city'] = location[0];
 			friend['region'] = location[1];
