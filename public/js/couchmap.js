@@ -152,6 +152,7 @@ couchmap.map = function($) {
 			}
 
 			// save the result in the global var
+			debugger;
 			couchmap.map.geocodingResult = couchmap.map.geocodingResult.concat(data);
 
 			// increase index
