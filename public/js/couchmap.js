@@ -97,7 +97,7 @@ couchmap.map = function($) {
 		geocodingQueries:{},
 		geocodingResult:{},
 
-		getPositionsFromData: function (err, data) {
+		getPositionsFromData: function (data) {
 			var positions = [];
 
 			// if there is only one result, then it isn't in an array, so we wrap it in one
@@ -182,7 +182,7 @@ couchmap.map = function($) {
 		draw: function(data) {
 
 			if ( typeof data != 'undefined' ) {
-				var positions = couchmap.map.getPositionsFromData(err, data);
+				var positions = couchmap.map.getPositionsFromData(data);
 
 				// After the positions structure is ready, we paint the markers
 				for ( p in positions ) {
