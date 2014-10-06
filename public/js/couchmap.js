@@ -158,7 +158,7 @@ couchmap.map = function($) {
 			) {
 
 				couchmap.map.geocoder.query(
-					couchmap.map.geocoderQuery[ couchmap.map.thisGeocodingQuery ],
+					couchmap.map.geocodingQueries[ couchmap.map.thisGeocodingQuery ],
 					couchmap.map.checkGeocoding
 				);
 			}
@@ -258,7 +258,6 @@ app.controller('MapCtrl', function($scope) {
 
 		// Prepare one query for all friends. Limit is 50
 
-		geocoderQuery = "";
 		for ( i in user['friends'] ) {
 
 			// group them by every 50 locations
@@ -284,7 +283,7 @@ app.controller('MapCtrl', function($scope) {
 
 			couchmap.map.geocoder = L.mapbox.geocoder( couchmap.MAP_TYPE );
 			couchmap.map.geocoder.query(
-				couchmap.map.geocoderQuery[ couchmap.map.thisGeocodingQuery ],
+				couchmap.map.geocodingQueries[ couchmap.map.thisGeocodingQuery ],
 				couchmap.map.checkGeocoding
 			);
 		}
