@@ -216,7 +216,8 @@ app.controller('MapCtrl', function($scope) {
 		L.mapbox.accessToken = couchmap.ACEESS_TOKEN;
 
 		couchmap.map.map = L.mapbox.map('map', couchmap.MAP_ID, {
-			worldCopyJump: true
+			worldCopyJump: true,
+			maxZoom : 10
 		});
 
 		setTimeout( function() {
