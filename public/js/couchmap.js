@@ -157,7 +157,10 @@ couchmap.map = function($) {
 				typeof couchmap.map.geocodingQueries[ couchmap.map.thisGeocodingQuery ] != 'undefined'
 			) {
 
-				couchmap.map.geocoder.query( geocoderQuery[ couchmap.map.thisGeocodingQuery ] , couchmap.map.checkGeocoding );
+				couchmap.map.geocoder.query(
+					couchmap.map.geocoderQuery[ couchmap.map.thisGeocodingQuery ],
+					couchmap.map.checkGeocoding
+				);
 			}
 			// if not, proceed to drawing
 			else {
@@ -280,7 +283,10 @@ app.controller('MapCtrl', function($scope) {
 			couchmap.map.thisGeocodingQuery = 0;
 
 			couchmap.map.geocoder = L.mapbox.geocoder( couchmap.MAP_TYPE );
-			couchmap.map.geocoder.query( geocoderQuery[ couchmap.map.thisGeocodingQuery ] , couchmap.map.checkGeocoding );
+			couchmap.map.geocoder.query(
+				couchmap.map.geocoderQuery[ couchmap.map.thisGeocodingQuery ],
+				couchmap.map.checkGeocoding
+			);
 		}
 
 		}, 500);
