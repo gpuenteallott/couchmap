@@ -141,18 +141,20 @@ couchmap.map = function($) {
 
 		draw: function(err, data) {
 
-			var positions = couchmap.map.getPositionsFromData(err, data);
+			if ( typeof data != 'undefined' ) {
+				var positions = couchmap.map.getPositionsFromData(err, data);
 
-			// After the positions structure is ready, we paint the markers
-			for ( p in positions ) {
-				couchmap.marker.setMarker( positions[p]['lat'], positions[p]['lng'], positions[p]['users'] );
-			}
+				// After the positions structure is ready, we paint the markers
+				for ( p in positions ) {
+					couchmap.marker.setMarker( positions[p]['lat'], positions[p]['lng'], positions[p]['users'] );
+				}
 
-			// Add the feature layer to the map and fit bounds
-			couchmap.map.featureLayer.addTo( couchmap.map.map );
+				// Add the feature layer to the map and fit bounds
+				couchmap.map.featureLayer.addTo( couchmap.map.map );
 
-			if ( positions.length > 0 ) {
-				couchmap.map.map.fitBounds( couchmap.map.featureLayer.getBounds() );
+				if ( positions.length > 0 ) {
+					couchmap.map.map.fitBounds( couchmap.map.featureLayer.getBounds() );
+				}
 			}
 
 			couchmap.map.setupEvents();
