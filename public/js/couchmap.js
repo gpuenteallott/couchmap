@@ -287,7 +287,7 @@ app.controller('MapCtrl', function($scope) {
 				couchmap.map.geocodingQueries[ groupIndex ] += thisQuery+";";
 			}
 
-			if ( couchmap.map.geocodingQueries[0] != '' ) {
+			if ( typeof couchmap.map.geocodingQueries[0] != 'undefined' && couchmap.map.geocodingQueries[0] != '' ) {
 
 				var query = couchmap.map.geocodingQueries[ couchmap.map.thisGeocodingQuery ];
 				query = query.substring( 0, query.length -1 );
@@ -299,6 +299,9 @@ app.controller('MapCtrl', function($scope) {
 					query,
 					couchmap.map.checkGeocoding
 				);
+			} else {
+				// if no friends detected, draw an empty map
+				couchmap.map.draw();
 			}
 
 		}, 500);
