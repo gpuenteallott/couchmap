@@ -262,8 +262,8 @@ app.controller('MapCtrl', function($scope) {
 			var groupIndex = Math.floor(i / 50);
 
 			// initializate it
-			if ( typeof geocodingQueries[ groupIndex ] == 'undefined' ) {
-				geocodingQueries[ groupIndex ] = '';
+			if ( typeof couchmap.map.geocodingQueries[ groupIndex ] == 'undefined' ) {
+				couchmap.map.geocodingQueries[ groupIndex ] = '';
 			}
 
 			var thisQuery = user['friends'][i]['city'] +", ";
