@@ -100,7 +100,7 @@ couchmap.map = function($) {
 		getPositionsFromData: function (data) {
 			var positions = [];
 
-			for ( i in data['results'] ) {
+			for ( i in data ) {
 
 				// if there is no user for that index
 				if ( typeof user['friends'][i] == 'undefined' ) {
@@ -109,12 +109,12 @@ couchmap.map = function($) {
 				}
 
 				// if the geocoding didnt work
-				if (  data['results'][i]["features"].length == 0 ) {
+				if (  data[i]["features"].length == 0 ) {
 					console.log ( "Couldn't locate "+user['friends'][i]['name']+ ". Query was"+user['friends'][i]['query']);
 					continue;
 				}
 
-				var latlng = data['results'][i]["features"][0]['center'];
+				var latlng = data[i]["features"][0]['center'];
 				var lat = latlng[1];
 				var lng = latlng[0];
 
