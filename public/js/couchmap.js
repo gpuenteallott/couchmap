@@ -243,10 +243,12 @@ app.controller('MapCtrl', function($scope) {
 			geocoderQuery += thisQuery+";";
 		}
 
-		geocoderQuery = geocoderQuery.substring(0, geocoderQuery.length - 1);
+		if ( geocoderQuery != '' ) {
+			geocoderQuery = geocoderQuery.substring(0, geocoderQuery.length - 1);
 
-		var geocoder = L.mapbox.geocoder( couchmap.MAP_TYPE );
-		geocoder.query( geocoderQuery , couchmap.map.draw );
+			var geocoder = L.mapbox.geocoder( couchmap.MAP_TYPE );
+			geocoder.query( geocoderQuery , couchmap.map.draw );
+		}
 
 		}, 500);
 	};
