@@ -113,8 +113,8 @@ couchmap.map = function($) {
 			var positions = [];
 
 			// if there is only one result, then it isn't in an array, so we wrap it in one
-			if ( typeof data.type != 'undefined' ) {
-				data = [ data ];
+			if ( typeof data.results.type != 'undefined' ) {
+				data.results = [ data.results ];
 			}
 
 			for ( i in data['results'] ) {
