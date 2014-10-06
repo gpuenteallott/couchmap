@@ -79,24 +79,6 @@ couchmap.marker = function($) {
 			});
 		},
 
-		open: function ( $marker, posX, posY ) {
-
-			// var middleX = $(window).width() / 2;
-			// var middleY = $(window).height() / 2;
-
-			// if ( posX < middleX && posY < middleY ) {
-			// 	$marker.addClass('quadrant-1').removeClass('quadrant-2 quadrant-3 quadrant-4');
-			// } else if ( posX > middleX && posY < middleY ) {
-			// 	$marker.addClass('quadrant-2').removeClass('quadrant-1 quadrant-3 quadrant-4');
-			// } else if ( posX < middleX && posY > middleY ) {
-			// 	$marker.addClass('quadrant-3').removeClass('quadrant-2 quadrant-1 quadrant-4');
-			// } else if ( posX > middleX && posY > middleY ) {
-			// 	$marker.addClass('quadrant-4').removeClass('quadrant-2 quadrant-3 quadrant-1');
-			// }
-
-			// $marker.addClass('open');
-			// $marker.siblings('.leaflet-marker-icon').removeClass('open');
-		},
 		closeAll: function () {
 			$('.leaflet-marker-icon').removeClass('open');
 		}
@@ -168,7 +150,7 @@ couchmap.map = function($) {
 			// Add the feature layer to the map and fit bounds
 			couchmap.map.featureLayer.addTo( couchmap.map.map );
 
-			if ( position.length > 0 ) {
+			if ( positions.length > 0 ) {
 				couchmap.map.map.fitBounds( couchmap.map.featureLayer.getBounds() );
 			}
 
