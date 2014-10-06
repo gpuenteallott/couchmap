@@ -267,7 +267,7 @@ app.controller('MapCtrl', function($scope) {
 			couchmap.map.featureLayer = L.mapbox.featureLayer();
 
 			// Prepare one query for all friends. Limit is 50
-			var LIMIT = 20;
+			var LIMIT = 45;
 
 			for ( i in user['friends'] ) {
 
