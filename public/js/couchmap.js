@@ -166,7 +166,7 @@ couchmap.map = function($) {
 			}
 
 
-		}.
+		},
 
 		draw: function(data) {
 
