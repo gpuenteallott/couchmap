@@ -56,7 +56,8 @@ couchmap.marker = function($) {
 				$contentRow = couchmap.marker.getContentRowTemplate();
 				$contentRow.find('.profile-pic').css('background-image', 'url('+users[i]['image']+')' );;
 				$contentRow.find('.name').text( users[i]['name'] );
-				$contentRow.find('a').attr('href', 'http://www.couchsurfing.org/people/'+users[i]['username'] );
+				//$contentRow.find('a').attr('href', 'http://www.couchsurfing.org/people/'+users[i]['username'] );
+				$contentRow.find('a').attr('href', '/'+users[i]['username'] );
 
 				$markerContent.append( $contentRow.html() );
 			}
@@ -169,9 +170,6 @@ couchmap.map = function($) {
 			$('.leaflet-marker-icon').on('mouseleave', function() {
 				couchmap.marker.resetEmphasis();
 			});
-			// $('.leaflet-marker-icon').on('click', function(e) {
-			// 	couchmap.marker.open( $(this), e.pageX, e.pageY );
-			// });
 			$('#map').on('click', function() {
 				couchmap.marker.closeAll();
 			});
@@ -281,6 +279,10 @@ app.controller('MapCtrl', function($scope) {
 
 	$scope.refresh = function() {
 		window.location.reload();
+	};
+
+	$scope.goToProfile = function( username ) {
+		window.location = 'https://www.couchsurfing.org/people/' + username;
 	};
 
 	$scope.init();
