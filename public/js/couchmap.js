@@ -92,6 +92,11 @@ couchmap.map = function($) {
 		featureLayer:null,
 		map:null,
 
+		geocoder:null,
+		thisGeocodingQuery:0,
+		geocodingQueries:{},
+		geocodingResult:{},
+
 		getPositionsFromData: function (err, data) {
 			var positions = [];
 
@@ -139,7 +144,31 @@ couchmap.map = function($) {
 			return positions;
 		},
 
-		draw: function(err, data) {
+		checkGeocoding: function ( err, data ) {
+
+			// save the result in the global var
+			couchmap.map.geocodingResult = geocodingResult.concat(data);
+
+			// increase index
+			couchmap.map.thisGeocodingQuery++;
+
+			// if there are more queries to be made, call again the geocoding
+			if ( couchmap.map.thisGeocodingQuery < couchmap.map.geocodingQueries.length &&
+				typeof couchmap.map.geocodingQueries[ couchmap.map.thisGeocodingQuery ] != 'undefined'
+			) {
+
+				couchmap.map.geocoder.query( geocoderQuery[ couchmap.map.thisGeocodingQuery ] , couchmap.map.checkGeocoding );
+			}
+			// if not, proceed to drawing
+			else {
+
+				couchmap.map.draw( couchmap.map.geocodingResult );
+			}
+
+
+		}.
+
+		draw: function(data) {
 
 			if ( typeof data != 'undefined' ) {
 				var positions = couchmap.map.getPositionsFromData(err, data);
@@ -225,20 +254,33 @@ app.controller('MapCtrl', function($scope) {
 		couchmap.map.featureLayer = L.mapbox.featureLayer();
 
 		// Prepare one query for all friends. Limit is 50
+
 		geocoderQuery = "";
 		for ( i in user['friends'] ) {
-			var thisQuery = user['friends'][i]['city'] +",";
-			thisQuery += typeof user['friends'][i]['region'] == "undefined" ? '' :  user['friends'][i]['region'] +",";
+
+			// group them by every 50 locations
+			var groupIndex = Math.floor(i / 50);
+
+			// initializate it
+			if ( typeof geocodingQueries[ groupIndex ] == 'undefined' ) {
+				geocodingQueries[ groupIndex ] = '';
+			}
+
+			var thisQuery = user['friends'][i]['city'] +", ";
+			thisQuery += typeof user['friends'][i]['region'] == "undefined" ? '' :  user['friends'][i]['region'] +", ";
 			thisQuery += user['friends'][i]['country'];
 			user['friends'][i]['query'] = thisQuery;
-			geocoderQuery += thisQuery+";";
+
+			geocodingQueries[ groupIndex ] += thisQuery+";";
 		}
 
-		if ( geocoderQuery != '' ) {
-			geocoderQuery = geocoderQuery.substring(0, geocoderQuery.length - 1);
+		if ( geocodingQueries[0] != '' ) {
+			//geocoderQuery = geocoderQuery.substring(0, geocoderQuery.length - 1);
 
-			var geocoder = L.mapbox.geocoder( couchmap.MAP_TYPE );
-			geocoder.query( geocoderQuery , couchmap.map.draw );
+			couchmap.map.thisGeocodingQuery = 0;
+
+			couchmap.map.geocoder = L.mapbox.geocoder( couchmap.MAP_TYPE );
+			couchmap.map.geocoder.query( geocoderQuery[ couchmap.map.thisGeocodingQuery ] , couchmap.map.checkGeocoding );
 		}
 
 		}, 500);
