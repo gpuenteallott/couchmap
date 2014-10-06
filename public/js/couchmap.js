@@ -281,10 +281,6 @@ app.controller('MapCtrl', function($scope) {
 		window.location.reload();
 	};
 
-	$scope.goToProfile = function( username ) {
-		window.location = 'https://www.couchsurfing.org/people/' + username;
-	};
-
 	$scope.init();
 });
 
