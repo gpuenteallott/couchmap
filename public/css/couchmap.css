@@ -142,8 +142,8 @@ body, input {
 
 header {
 	position: fixed;
-	top: 1em;
-	right: 1em;
+	top: .5em;
+	right: .5em;
 	z-index:100;
 }
 
@@ -180,7 +180,7 @@ header li {
 }
 header span {
 	display:inline-block;
-	padding:1em;
+	padding:.5em;
 	color: #fff;
 	cursor: pointer;
 }
@@ -189,6 +189,16 @@ header .nav-username {
 }
 header .nav-new {
 	background-color: #6CB035;
+}
+
+@media screen and (min-width: 768px) {
+	header {
+		top: 1em;
+		right: 1em;
+	}
+	header span {
+		padding:1em;
+	}
 }
 
 .blur {
