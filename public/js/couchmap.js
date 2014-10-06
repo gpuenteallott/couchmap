@@ -271,10 +271,10 @@ app.controller('MapCtrl', function($scope) {
 			thisQuery += user['friends'][i]['country'];
 			user['friends'][i]['query'] = thisQuery;
 
-			geocodingQueries[ groupIndex ] += thisQuery+";";
+			couchmap.map.geocodingQueries[ groupIndex ] += thisQuery+";";
 		}
 
-		if ( geocodingQueries[0] != '' ) {
+		if ( couchmap.map.geocodingQueries[0] != '' ) {
 			//geocoderQuery = geocoderQuery.substring(0, geocoderQuery.length - 1);
 
 			couchmap.map.thisGeocodingQuery = 0;
