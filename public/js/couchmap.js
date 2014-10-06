@@ -94,8 +94,8 @@ couchmap.map = function($) {
 
 		geocoder:null,
 		thisGeocodingQuery:0,
-		geocodingQueries:{},
-		geocodingResult:{},
+		geocodingQueries:[],
+		geocodingResult:[],
 
 		getPositionsFromData: function (data) {
 			var positions = [];
@@ -153,7 +153,7 @@ couchmap.map = function($) {
 
 			// save the result in the global var
 			for ( var i in data.results ) {
-				couchmap.map.geocodingResult.add( data.results[i] );
+				couchmap.map.geocodingResult.push( data.results[i] );
 			}
 
 			// increase index
