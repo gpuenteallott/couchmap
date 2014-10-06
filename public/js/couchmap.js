@@ -285,6 +285,8 @@ app.controller('MapCtrl', function($scope) {
 		window.location.reload();
 	};
 
-	$scope.init();
+	setTimeout(
+		$scope.init();
+	, 500);
 });
 

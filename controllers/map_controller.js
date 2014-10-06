@@ -13,8 +13,6 @@ var cheerio = require('cheerio'); // https://www.npmjs.org/package/cheerio
 // GET /map/username
 exports.index = function(req, res, next) {
 
-	console.log('starting index');
-
 	// load username or use default one
 	if ( typeof req.param('username') == 'undefined' ) {
 		var username = 'gpuenteallott';
