@@ -276,8 +276,8 @@ app.controller('MapCtrl', function($scope) {
 				couchmap.map.geocodingQueries[ groupIndex ] = '';
 			}
 
-			var thisQuery = user['friends'][i]['city'] +", ";
-			thisQuery += typeof user['friends'][i]['region'] == "undefined" ? '' :  user['friends'][i]['region'] +", ";
+			var thisQuery = user['friends'][i]['city'] +",";
+			thisQuery += typeof user['friends'][i]['region'] == "undefined" ? '' :  user['friends'][i]['region'] +",";
 			thisQuery += user['friends'][i]['country'];
 			user['friends'][i]['query'] = thisQuery;
 
