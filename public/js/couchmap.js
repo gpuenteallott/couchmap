@@ -146,8 +146,13 @@ couchmap.map = function($) {
 
 		checkGeocoding: function ( err, data ) {
 
+			if ( typeof data == 'undefined' ) {
+				couchmap.map.draw( couchmap.map.geocodingResult );
+				return;
+			}
+
 			// save the result in the global var
-			couchmap.map.geocodingResult = geocodingResult.concat(data);
+			couchmap.map.geocodingResult = couchmap.map.geocodingResult.concat(data);
 
 			// increase index
 			couchmap.map.thisGeocodingQuery++;
