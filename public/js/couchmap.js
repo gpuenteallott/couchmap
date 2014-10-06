@@ -152,7 +152,6 @@ couchmap.map = function($) {
 			}
 
 			// save the result in the global var
-			debugger;
 			couchmap.map.geocodingResult = couchmap.map.geocodingResult.concat(data);
 
 			// increase index
@@ -163,8 +162,11 @@ couchmap.map = function($) {
 				typeof couchmap.map.geocodingQueries[ couchmap.map.thisGeocodingQuery ] != 'undefined'
 			) {
 
+				var query = couchmap.map.geocodingQueries[ couchmap.map.thisGeocodingQuery ];
+				query = query.substring( 0, query.length -1 );
+
 				couchmap.map.geocoder.query(
-					couchmap.map.geocodingQueries[ couchmap.map.thisGeocodingQuery ],
+					query,
 					couchmap.map.checkGeocoding
 				);
 			}
@@ -283,13 +285,15 @@ app.controller('MapCtrl', function($scope) {
 		}
 
 		if ( couchmap.map.geocodingQueries[0] != '' ) {
-			//geocoderQuery = geocoderQuery.substring(0, geocoderQuery.length - 1);
+
+			var query = couchmap.map.geocodingQueries[ couchmap.map.thisGeocodingQuery ];
+			query = query.substring( 0, query.length -1 );
 
 			couchmap.map.thisGeocodingQuery = 0;
 
 			couchmap.map.geocoder = L.mapbox.geocoder( couchmap.MAP_TYPE );
 			couchmap.map.geocoder.query(
-				couchmap.map.geocodingQueries[ couchmap.map.thisGeocodingQuery ],
+				query,
 				couchmap.map.checkGeocoding
 			);
 		}
