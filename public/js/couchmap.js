@@ -71,7 +71,7 @@ couchmap.marker = function($) {
 					html: $thisMarker.html(),
 					iconSize: [90, 90]
 				})
-			}).addTo(couchmap.map.featureLayer).bindPopup( $markerContent.html() , {
+			}).addTo( couchmap.map.featureLayer ).bindPopup( $markerContent.html() , {
 				maxHeight: 300,
 				maxWidth: 200,
 				minWidth: 200,
@@ -111,6 +111,11 @@ couchmap.map = function($) {
 
 		getPositionsFromData: function (err, data) {
 			var positions = [];
+
+			// if there is only one result, then it isn't in an array, so we wrap it in one
+			if ( typeof data.type != 'undefined' ) {
+				data = [ data ];
+			}
 
 			for ( i in data['results'] ) {
 
@@ -162,7 +167,10 @@ couchmap.map = function($) {
 
 			// Add the feature layer to the map and fit bounds
 			couchmap.map.featureLayer.addTo( couchmap.map.map );
-			couchmap.map.map.fitBounds( couchmap.map.featureLayer.getBounds() );
+
+			if ( position.length > 0 ) {
+				couchmap.map.map.fitBounds( couchmap.map.featureLayer.getBounds() );
+			}
 
 			couchmap.map.setupEvents();
 
