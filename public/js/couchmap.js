@@ -202,7 +202,7 @@ couchmap.map = function($) {
 			couchmap.map.setupEvents();
 
 			// Move legend to the left
-			$('.leaflet-control-container .leaflet-bottom.leaflet-left').append($('.leaflet-control-attribution').detach());
+			//$('.leaflet-control-container .leaflet-bottom.leaflet-left').append($('.leaflet-control-attribution').detach());
 
 			couchmap.map.hideLoader();
 		},
@@ -238,10 +238,11 @@ app.controller('MapCtrl', function($scope) {
 		// extract the username from the URL
 		if ( typeof window.location.pathname.split('/')[1] != 'undefined' && window.location.pathname.split('/')[1] != '' ) {
 			$scope.username = window.location.pathname.split('/')[1];
+			$('.nav-username').css('display', 'inline-block');
+			$('.nav-embed').css('display', 'inline-block');
 			var force_modal = false;
 		} else {
 			$scope.username = '';
-			$('.nav-username').hide();
 			var force_modal = true;
 		}
 
@@ -259,7 +260,8 @@ app.controller('MapCtrl', function($scope) {
 
 		couchmap.map.map = L.mapbox.map('map', couchmap.MAP_ID, {
 			worldCopyJump: true,
-			maxZoom : 10
+			maxZoom : 10,
+			attributionControl: false
 		});
 
 		setTimeout( function() {
@@ -325,6 +327,11 @@ app.controller('MapCtrl', function($scope) {
 			$('#map').removeClass('blur');
 		}
 
+		// show modal with map's embed code
+		if ( $(event.target).closest('.nav-embed').length ) {
+			$('#embed-modal').show();
+			$('#map').addClass('blur');
+		}
 	};
 
 	$scope.newMap = function($event) {
